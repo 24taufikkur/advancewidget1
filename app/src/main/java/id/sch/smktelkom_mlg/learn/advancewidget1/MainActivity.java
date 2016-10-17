@@ -15,31 +15,40 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        LinearLayout llMain = (LinearLayout) findViewById(R.id.linearLayoutMain);
 
-        final EditText etNama = new EditText(this);
-        etNama.setHint("isikan nama anak");
-        llMain.addView(etNama);
-
-        final EditText etUmur = new EditText(this);
-        etUmur.setHint("isikan umur anak");
-        llMain.addView(etUmur);
-        etUmur.setInputType(InputType.TYPE_CLASS_NUMBER);
+        final LinearLayout llMain = (LinearLayout) findViewById(R.id.linearLayoutMain);
+        addEditText(llMain);
 
         Button bProses = new Button(this);
         bProses.setText("Proses");
         llMain.addView(bProses);
         final TextView tvHasil = new TextView(this);
         llMain.addView(tvHasil);
+
         bProses.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                EditText etNama = (EditText) llMain.getChildAt(0);
+                EditText etUmur = (EditText) llMain.getChildAt(1);
+
                 String nama = etNama.getText().toString();
                 String umur = etUmur.getText().toString();
 
-                tvHasil.setText(nama + " umur " + umur + " tahun ");
+                tvHasil.setText(nama + " umur" + umur + " tahun ");
             }
         });
+    }
 
+    private void addEditText(LinearLayout llMain) {
+        for (int i = 1; i <= 5; i++) {
+            final EditText etNama = new EditText(this);
+            llMain.addView(etNama);
+            etNama.setHint("Isikan Nama Anak");
+
+            final EditText etUmur = new EditText(this);
+            llMain.addView(etUmur);
+            etUmur.setHint("Isikan Umur Anak");
+            etUmur.setInputType(InputType.TYPE_CLASS_NUMBER);
+        }
     }
 }
